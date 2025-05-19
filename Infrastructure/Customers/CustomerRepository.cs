@@ -11,9 +11,9 @@ namespace Infrastructure
 {
     public class CustomerRepository:ICustomerRepository
     {
-        private readonly ExampleContext _dbContext;
+        private readonly AdvertiserContextL _dbContext;
 
-        public DataRepository(ExampleContext dbContext)
+        public CustomerRepository(AdvertiserContextL dbContext)
         {
             _dbContext = dbContext;
 
@@ -22,6 +22,8 @@ namespace Infrastructure
 
         public Task Create(Customer item)
         {
+            _dbContext.cus
+            return _dbContext.SaveChangesAsync();
         }
 
         public Task DeleteAsync(int id)
