@@ -11,6 +11,10 @@ namespace Infrastructure
 {
     public class AdvertiserContext : DbContext
     {
+        public AdvertiserContext(DbContextOptions<AdvertiserContext> options)
+        : base(options)
+        {
+        }
         // Orders
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
@@ -25,22 +29,23 @@ namespace Infrastructure
         {
             base.OnModelCreating(modelBuilder);
 
-            // היררכיה למחלקות Customer (TPT/TPH)
             modelBuilder.Entity<Customer>()
                 .HasDiscriminator<string>("CustomerType")
                 .HasValue<ContactCustomer>("ContactCustomer")
                 .HasValue<OrderCustomer>("OrderCustomer");
 
-            // קשר בין OrderItem ל-Item
             modelBuilder.Entity<OrderItem>()
                 .HasOne(oi => oi.Item)
                 .WithMany()
                 .HasForeignKey(oi => oi.ItemId);
+
+            modelBuilder.Entity<OrderItem>()
+                .HasOne<Order>(oi => oi.Order)
+                .WithMany(o => o.OrderItems)
+                .HasForeignKey(oi => oi.OrderId)
+                .OnDelete(DeleteBehavior.Cascade); 
         }
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-L9S4R74;Database=AdvertiserServer;Trusted_Connection=True;TrustServerCertificate=True");
-
     }
-
 }
+
+

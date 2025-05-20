@@ -9,11 +9,8 @@ namespace Core.Models.Customers
     public class ContactCustomer:Customer
     {
         public string ContactMessage { get; set; }
-        public EnumStatus status { get; set; }
-        public enum EnumStatus
-        {
-            חדש, בטיפול, טופל
-        }
+        public string status { get; set; }
+       
 
     }
 }

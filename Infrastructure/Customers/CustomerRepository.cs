@@ -5,42 +5,53 @@ using System.Text;
 using System.Threading.Tasks;
 using Core.Models.Customers;
 using Core.Repository.Customers;
+using Microsoft.EntityFrameworkCore;
 
 
-namespace Infrastructure
+namespace Infrastructure.Customers
 {
-    public class CustomerRepository:ICustomerRepository
+    public class CustomerRepository : ICustomerRepository
     {
-        private readonly AdvertiserContextL _dbContext;
+        private readonly AdvertiserContext _dbContext;
 
-        public CustomerRepository(AdvertiserContextL dbContext)
+        public CustomerRepository(AdvertiserContext dbContext)
         {
             _dbContext = dbContext;
 
         }
-        public CustomerRepository() { }
-
-        public Task Create(Customer item)
+        public Task<int> CreateAsync(Customer item)
         {
-            _dbContext.cus
+            _dbContext.Customers.Add(item);
             return _dbContext.SaveChangesAsync();
         }
-
-        public Task DeleteAsync(int id)
+        public async Task<int> DeleteAsync(int id)
         {
+            var customer = await _dbContext.Customers.FindAsync(id);
+            if (customer != null)
+            {
+                _dbContext.Customers.Remove(customer);
+              return  await _dbContext.SaveChangesAsync();
+            }
+            return 0;
+        }
+        public async Task<List<Customer>> GetAllAsync()
+        {
+            return await _dbContext.Customers.ToListAsync();
+        }
+        public async Task<Customer> GetByIdAsync(int id)
+
+        {
+            return await _dbContext.Customers.Where(Customer => Customer.Id == id).FirstOrDefaultAsync();
+
+        }
+        public async Task<int> UpdateAsync(Customer item)
+        {
+            var Customer = await _dbContext.Customers.Where(x => x.Id == item.Id).FirstOrDefaultAsync();
+            _dbContext.Entry(Customer).CurrentValues.SetValues(item);
+            return await _dbContext.SaveChangesAsync();
+
         }
 
-        public Task<List<Customer>> GetAllAsync()
-        {
-        }
-
-        public Task<Customer> GetByIdAsync(int id)
-        {
-        }
-
-        public Task Update(Customer item)
-        {
-        }
     }
 
 }

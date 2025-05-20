@@ -1,13 +1,14 @@
-﻿using Core.Models.Customers;
+﻿
+using Core.Models.Customers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Repository.Customers
+namespace Core.Services.Customers
 {
-    public interface IOrderCustomerRepository
+    public  interface IOrderCustomerService
     {
         Task<List<OrderCustomer>> GetAllAsync();
         Task<OrderCustomer> GetByIdAsync(int id);

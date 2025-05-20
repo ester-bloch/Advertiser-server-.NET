@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace Core.Repository
 {
-    public interface IOrderItemRepository
+    public interface IItemRepository
     {
         Task<List<Item>> GetAllAsync();
         Task<Item> GetByIdAsync(int id);
-        Task DeleteAsync(int id);
-        Task Update(Item item);
-        Task Create(Item item);
+
+        Task<int> DeleteAsync(int id);
+        Task<int> UpdateAsync(Item item);
+        Task<int> CreateAsync(Item item);
     }
 }

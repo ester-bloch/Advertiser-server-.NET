@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Repository.Customers
+namespace Core.Services.Customers
 {
-    public interface IContactCustomerRepository
+    public interface IContactCustomerService
     {
         Task<List<ContactCustomer>> GetAllAsync();
         Task<ContactCustomer> GetByIdAsync(int id);
