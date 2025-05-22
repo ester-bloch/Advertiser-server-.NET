@@ -7,6 +7,10 @@ using Core.Services.Customers;
 using Services.Customers;
 using Infrastructure.Customers;
 using Infrastructure.OrderCustomers;
+using Core.Services.Orders;
+using Services.Orders;
+using Core.Repository;
+using Infrastructure.Orders;
 
 var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
@@ -17,14 +21,21 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AdvertiserContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AdvertiserDb")));
+//services
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IContactCustomerService, ContactCustomerService>();
 builder.Services.AddScoped<IOrderCustomerService, OrderCustomerService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IItemService, ItemService>();
+builder.Services.AddScoped<IOrderItemService, OrderItemService>();
 
 // Repositories
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IContactCustomerRepository, ContactCustomerRepository>();
 builder.Services.AddScoped<IOrderCustomerRepository, OrderCustomerRepository>();
+builder.Services.AddScoped<IOrderRepository, IOrderRepository>();
+builder.Services.AddScoped<IItemRepository, ItemRepository>();
+builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile).Assembly);
 var app = builder.Build();

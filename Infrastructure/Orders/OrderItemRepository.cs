@@ -1,5 +1,6 @@
 ﻿using Core.Models.Customers;
 using Core.Models.Orders;
+using Core.Repository.Orders;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Orders
 {
-    public class OrderItemRepository
+    public class OrderItemRepository: IOrderItemRepository
     {
         private readonly AdvertiserContext _dbContext;
 
