@@ -11,10 +11,8 @@ namespace Infrastructure
 {
     public class AdvertiserContext : DbContext
     {
-        public AdvertiserContext(DbContextOptions<AdvertiserContext> options)
-        : base(options)
-        {
-        }
+        public AdvertiserContext(DbContextOptions<AdvertiserContext> options) : base(options) { }
+        
         // Orders
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
@@ -24,7 +22,7 @@ namespace Infrastructure
         public DbSet<Customer> Customers { get; set; }
         public DbSet<ContactCustomer> ContactCustomers { get; set; }
         public DbSet<OrderCustomer> OrderCustomers { get; set; }
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

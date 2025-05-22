@@ -1,24 +1,26 @@
 ﻿using Core.Models.Customers;
+using Core.Models.Orders;
 using Core.Repository.Customers;
-using Core.Services.Customers;
+using Core.Repository.Orders;
+using Core.Services.Orders;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Services.Customers
+namespace Services.Orders
 {
-    public class ContactCustomerService : IContactCustomerService
+    public class OrderItemService: IOrderItemService
     {
 
-        private readonly IContactCustomerRepository IRepositoryInjection;
-        public ContactCustomerService(IContactCustomerRepository injection)
+        private readonly IOrderItemRepository IRepositoryInjection;
+        public OrderItemService(IOrderItemRepository injection)
         {
             IRepositoryInjection = injection;
         }
 
-        public Task<int> CreateAsync(ContactCustomer item)
+        public Task<int> CreateAsync(OrderItem item)
         {
             return IRepositoryInjection.CreateAsync(item);
         }
@@ -27,17 +29,17 @@ namespace Services.Customers
         {
             return IRepositoryInjection.DeleteAsync(id);
         }
-        public Task<List<ContactCustomer>> GetAllAsync()
+        public Task<List<OrderItem>> GetAllAsync()
         {
             return IRepositoryInjection.GetAllAsync();
         }
 
-        public Task<ContactCustomer> GetByIdAsync(int id)
+        public Task<OrderItem> GetByIdAsync(int id)
         {
             return IRepositoryInjection.GetByIdAsync(id);
         }
 
-        public Task<int> UpdateAsync(ContactCustomer item)
+        public Task<int> UpdateAsync(OrderItem item)
         {
             return IRepositoryInjection.UpdateAsync(item);
         }

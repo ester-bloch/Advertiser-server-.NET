@@ -2,10 +2,10 @@
 using Core.Services.Customers;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EndPoints.Controllers.ManagerEndPoints.Customers
+namespace EndPoints.Controllers.Customers
 {
     [ApiController]
-    [Route("manager/[controller]")]
+    [Route("[controller]")]
     public class CustomerController : Controller
     {
         private readonly ICustomerService _injectionService;
@@ -44,7 +44,7 @@ namespace EndPoints.Controllers.ManagerEndPoints.Customers
             return BadRequest();
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public async Task<IActionResult> Update([FromBody] Customer c)
         {
             var result = await _injectionService.UpdateAsync(c);
@@ -53,6 +53,4 @@ namespace EndPoints.Controllers.ManagerEndPoints.Customers
             return NotFound();
         }
     }
-
-
 }

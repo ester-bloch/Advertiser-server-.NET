@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using System.IO;
 
 namespace Infrastructure
 {
@@ -14,8 +8,9 @@ namespace Infrastructure
     {
         public AdvertiserContext CreateDbContext(string[] args)
         {
+            var basePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "EndPoints");
             var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath(basePath)
                 .AddJsonFile("appsettings.json")
                 .Build();
 

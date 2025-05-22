@@ -17,7 +17,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AdvertiserContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("AdvertiserDb")));
-// Services
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IContactCustomerService, ContactCustomerService>();
 builder.Services.AddScoped<IOrderCustomerService, OrderCustomerService>();
@@ -42,5 +41,16 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+
+    app.MapGet("/", context =>
+    {
+        context.Response.Redirect("/swagger");
+        return Task.CompletedTask;
+    });
+}
 
 app.Run();

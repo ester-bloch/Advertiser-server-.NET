@@ -10,7 +10,5 @@ namespace Core.Models.Customers
     {
         public string ContactMessage { get; set; }
         public string status { get; set; }
-       
-
     }
 }
