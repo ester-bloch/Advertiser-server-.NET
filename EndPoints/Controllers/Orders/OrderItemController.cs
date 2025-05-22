@@ -1,28 +1,30 @@
-﻿using Core.Models.Orders;
+﻿using Core.Models.Customers;
+using Core.Models.Orders;
+using Core.Services.Customers;
 using Core.Services.Orders;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EndPoints.Controllers.ManagerEndPoints.Orders
+namespace EndPoints.Controllers.Orders
 {
     [ApiController]
     [Route("[controller]")]
-    public class OrderController : Controller
+    public class OrderItemController : Controller
     {
-        
-        private readonly IOrderService _injectionService;
-        public OrderController(IOrderService injection)
+
+        private readonly IOrderItemService   _injectionService;
+        public OrderItemController(IOrderItemService injection)
         {
             _injectionService = injection;
         }
 
         [HttpGet]
-        public async Task<List<Order>> GetAll()
+        public async Task<List<OrderItem>> GetAll()
         {
             return await _injectionService.GetAllAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<Order> GetById(int id)
+        public async Task<OrderItem> GetById(int id)
         {
             return await _injectionService.GetByIdAsync(id);
         }
@@ -37,7 +39,7 @@ namespace EndPoints.Controllers.ManagerEndPoints.Orders
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] Order c)
+        public async Task<IActionResult> Create([FromBody] OrderItem c)
         {
             var result = await _injectionService.CreateAsync(c);
             if (result > 0)
@@ -45,7 +47,7 @@ namespace EndPoints.Controllers.ManagerEndPoints.Orders
             return BadRequest();
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update([FromBody] Order c)
+        public async Task<IActionResult> Update([FromBody] OrderItem c)
         {
             var result = await _injectionService.UpdateAsync(c);
             if (result > 0)
