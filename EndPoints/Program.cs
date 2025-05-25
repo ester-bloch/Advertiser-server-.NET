@@ -33,7 +33,7 @@ builder.Services.AddScoped<IOrderItemService, OrderItemService>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IContactCustomerRepository, ContactCustomerRepository>();
 builder.Services.AddScoped<IOrderCustomerRepository, OrderCustomerRepository>();
-builder.Services.AddScoped<IOrderRepository, IOrderRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<IItemRepository, ItemRepository>();
 builder.Services.AddScoped<IOrderItemRepository, OrderItemRepository>();
 

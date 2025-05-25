@@ -9,7 +9,7 @@ namespace Core.Models.Orders
 {
     public enum enumType
     {
-        הדפסה, תליה, הפצה
+        הדפסה,תליה,הפצה
     }
     public enum enumSize
     {
